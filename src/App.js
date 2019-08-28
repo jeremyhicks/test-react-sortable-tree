@@ -2,25 +2,36 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import SortableTree from 'react-sortable-tree';
+// In your own app, you would need to use import styles once in the app
+import 'react-sortable-tree/style.css';
+
+
+class App extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      treeData: [
+        { title: 'Chicken', subtitle: 'little', expanded: true, children: [{ title: 'Eggs', subtitle: 'white' }] },
+      ],
+    };
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div style={{ height: 300 }}>
+          <SortableTree
+            treeData={this.state.treeData}
+            onChange={treeData => this.setState({ treeData })}
+            isVirtualized={false}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
